@@ -1,0 +1,12 @@
+{
+	"appId": "com.manadukanam.app",
+	"appName": "Mana Dukanam",
+	"webDir": "www",
+	"backgroundColor": "#EEF3EF",
+	"plugins": {
+		"SystemBars": {
+			"insetsHandling": "css",
+			"initialViewportFitValueHint": "cover"
+		}
+	}
+}

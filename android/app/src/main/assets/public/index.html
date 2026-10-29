@@ -1,0 +1,902 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0E6B5C">
+<title>Mana Dukanam</title>
+<style>
+:root{color-scheme:light;--sat:var(--safe-area-inset-top,env(safe-area-inset-top,0px));--sab:var(--safe-area-inset-bottom,env(safe-area-inset-bottom,0px));--sal:var(--safe-area-inset-left,env(safe-area-inset-left,0px));--sar:var(--safe-area-inset-right,env(safe-area-inset-right,0px))}
+html{height:100%;-webkit-text-size-adjust:100%}body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}
+@font-face{font-family:"Bricolage Grotesque";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/bricolage-grotesque-latin-700-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Bricolage Grotesque";font-style:normal;font-weight:800;font-display:swap;src:url(fonts/bricolage-grotesque-latin-800-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Hind Guntur";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/hind-guntur-latin-400-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Hind Guntur";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/hind-guntur-telugu-400-normal.woff2) format("woff2");unicode-range:U+0951-0952,U+0964-0965,U+0C00-0C7F,U+1CDA,U+200C-200D,U+25CC}
+@font-face{font-family:"Hind Guntur";font-style:normal;font-weight:500;font-display:swap;src:url(fonts/hind-guntur-latin-500-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Hind Guntur";font-style:normal;font-weight:500;font-display:swap;src:url(fonts/hind-guntur-telugu-500-normal.woff2) format("woff2");unicode-range:U+0951-0952,U+0964-0965,U+0C00-0C7F,U+1CDA,U+200C-200D,U+25CC}
+@font-face{font-family:"Hind Guntur";font-style:normal;font-weight:600;font-display:swap;src:url(fonts/hind-guntur-latin-600-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Hind Guntur";font-style:normal;font-weight:600;font-display:swap;src:url(fonts/hind-guntur-telugu-600-normal.woff2) format("woff2");unicode-range:U+0951-0952,U+0964-0965,U+0C00-0C7F,U+1CDA,U+200C-200D,U+25CC}
+@font-face{font-family:"Hind Guntur";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/hind-guntur-latin-700-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Hind Guntur";font-style:normal;font-weight:700;font-display:swap;src:url(fonts/hind-guntur-telugu-700-normal.woff2) format("woff2");unicode-range:U+0951-0952,U+0964-0965,U+0C00-0C7F,U+1CDA,U+200C-200D,U+25CC}
+
+/* Layout concept: two phones side by side (customer + shopkeeper) sharing one live state, so a demo shows the whole loop. Narrow screens show one phone with a switch. */
+:root{
+  --paper:#EEF3EF; --surface:#FFFFFF; --ink:#13231F; --muted:#586861; --line:#D3DED8;
+  --river:#0E6B5C; --river-ink:#FFFFFF; --river-soft:#DCEFE9;
+  --saffron:#F2B01E; --saffron-soft:#FFF1CC; --saffron-ink:#4A3300;
+  --chilli:#C0352B; --chilli-soft:#FBE4E1;
+  --good:#1B8049; --good-soft:#DDF3E6;
+  --bezel:#13231F;
+  --font-display:"Bricolage Grotesque","Hind Guntur","Noto Sans Telugu",system-ui,sans-serif;
+  --font-body:"Hind Guntur","Noto Sans Telugu",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0C1512; --surface:#15231E; --ink:#E7F0EC; --muted:#93A8A0; --line:#254037;
+    --river:#3DBBA2; --river-ink:#04201A; --river-soft:#16372F;
+    --saffron:#F6C244; --saffron-soft:#3A2D0A; --saffron-ink:#FFE9AE;
+    --chilli:#F28277; --chilli-soft:#3C1815;
+    --good:#5ACB8C; --good-soft:#143324;
+    --bezel:#050A08; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0C1512; --surface:#15231E; --ink:#E7F0EC; --muted:#93A8A0; --line:#254037;
+  --river:#3DBBA2; --river-ink:#04201A; --river-soft:#16372F;
+  --saffron:#F6C244; --saffron-soft:#3A2D0A; --saffron-ink:#FFE9AE;
+  --chilli:#F28277; --chilli-soft:#3C1815;
+  --good:#5ACB8C; --good-soft:#143324;
+  --bezel:#050A08; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:14px;line-height:1.45;
+  padding-block:20px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+button{font:inherit;color:inherit;cursor:pointer}
+input,select{font:inherit}
+:focus-visible{outline:3px solid var(--saffron);outline-offset:2px}
+.wrap{max-width:1140px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+.top{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:24px;align-items:end}
+@media(max-width:900px){.top{grid-template-columns:minmax(0,1fr)}}
+h1{font-family:var(--font-display);font-size:clamp(30px,5vw,46px);line-height:1.02;margin:6px 0 10px;letter-spacing:-.02em;text-wrap:balance}
+h1 .te-h{display:block;font-size:.5em;font-weight:600;color:var(--river);letter-spacing:0;margin-top:4px}
+h2.sec{font-family:var(--font-display);font-size:22px;margin:0 0 4px;letter-spacing:-.01em}
+.lede{margin:0;color:var(--muted);max-width:56ch}
+.eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.try{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.try ol{margin:8px 0 0;padding-left:18px;display:grid;gap:5px}
+.seg{display:none;gap:4px;background:var(--surface);border:1px solid var(--line);padding:4px;border-radius:999px;width:max-content;max-width:100%}
+.seg button{border:0;background:transparent;padding:8px 18px;border-radius:999px;font-weight:600;min-height:40px}
+.seg button[aria-pressed=true]{background:var(--river);color:var(--river-ink)}
+.stage{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;justify-items:center}
+.pw{display:flex;flex-direction:column;gap:10px;align-items:center;width:100%;min-width:0}
+.pw-label{font-weight:600;color:var(--muted);font-size:13px}
+@media(max-width:899px){
+  .seg{display:flex}
+  .stage{grid-template-columns:minmax(0,1fr)}
+  .stage[data-view=cust] .pw.shop,.stage[data-view=shop] .pw.cust{display:none}
+}
+.phone{width:100%;max-width:390px;height:740px;background:var(--bezel);border-radius:38px;padding:9px;box-shadow:0 18px 40px -20px rgba(0,0,0,.5)}
+.screen{position:relative;height:100%;background:var(--paper);border-radius:30px;overflow:hidden;display:flex;flex-direction:column}
+@media(max-width:480px){.phone{height:690px;border-radius:26px;padding:6px}.screen{border-radius:21px}}
+.sb{display:flex;justify-content:space-between;padding:8px 18px 0;font-size:11px;font-weight:600;color:var(--muted)}
+.dyn{display:flex;flex-direction:column;flex:1;min-height:0}
+.ab{display:flex;align-items:center;gap:8px;padding:8px 14px 8px}
+.ab h2{font-family:var(--font-display);font-size:18px;margin:0;flex:1;min-width:0;letter-spacing:-.01em;line-height:1.15}
+.logo{width:32px;height:32px;border-radius:10px;background:var(--river);color:var(--river-ink);display:grid;place-items:center;flex:none}
+.content{flex:1;overflow-y:auto;padding:4px 14px 16px;display:flex;flex-direction:column;gap:12px;min-height:0}
+.foot{padding:10px 14px;display:grid;gap:8px;background:var(--surface);border-top:1px solid var(--line)}
+.tabs{display:flex;background:var(--surface);border-top:1px solid var(--line);padding:4px 2px 6px}
+.tabs button{flex:1;border:0;background:transparent;display:flex;flex-direction:column;align-items:center;gap:1px;padding:5px 2px;font-size:11px;font-weight:600;color:var(--muted);position:relative;min-height:48px;min-width:0}
+.tabs button[aria-current=true]{color:var(--river)}
+.tabs svg{width:22px;height:22px}
+.badge{position:absolute;top:1px;left:calc(50% + 6px);min-width:16px;height:16px;border-radius:8px;background:var(--chilli);color:#fff;font-size:10px;display:grid;place-items:center;padding:0 4px}
+.ic{width:18px;height:18px;flex:none}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px}
+.card.flat{background:transparent;border-style:dashed}
+.card h3{margin:0 0 6px;font-size:14px}
+.row{display:flex;align-items:center;gap:10px;min-width:0}
+.wrapx{flex-wrap:wrap}
+.grow{flex:1;min-width:0}
+.muted{color:var(--muted)}
+.small{font-size:12px}
+.te{font-size:12px;color:var(--muted)}
+.num{font-variant-numeric:tabular-nums;font-weight:700}
+.right{text-align:right}
+.btn{border:1px solid transparent;background:var(--river);color:var(--river-ink);border-radius:12px;padding:10px 14px;font-weight:700;min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center;line-height:1.2}
+.btn.block{width:100%}
+.btn.ghost{background:transparent;color:var(--river);border-color:var(--river)}
+.btn.sun{background:var(--saffron);color:var(--saffron-ink)}
+.btn.warn{background:var(--chilli-soft);color:var(--chilli)}
+.btn.sm{min-height:36px;padding:6px 12px;font-size:13px}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.icb{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;flex:none;color:var(--muted)}
+.icb.big{width:44px;height:44px;color:var(--river)}
+.pill{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:2px 9px;font-size:11px;font-weight:700;background:var(--river-soft);color:var(--river);white-space:nowrap}
+.pill.good{background:var(--good-soft);color:var(--good)}
+.pill.warn{background:var(--saffron-soft);color:var(--saffron-ink)}
+.pill.bad{background:var(--chilli-soft);color:var(--chilli)}
+.pill.mute{background:var(--line);color:var(--muted)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 11px;font-size:12.5px;font-weight:600;min-height:32px;display:inline-flex;align-items:center;gap:5px}
+.chip[aria-pressed=true]{background:var(--river);color:var(--river-ink);border-color:var(--river)}
+.step{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface);flex:none}
+.step button{width:38px;height:38px;border:0;background:var(--river-soft);color:var(--river);display:grid;place-items:center}
+.step span{min-width:58px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums;font-size:13px;padding:0 4px}
+.step input{width:64px;text-align:center;border:0;background:transparent;font-weight:700;font-size:15px;color:var(--ink);-moz-appearance:textfield;padding:0}
+.step input::-webkit-outer-spin-button,.step input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.sw{width:52px;height:30px;border-radius:15px;border:0;background:var(--line);position:relative;flex:none}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:transform .15s}
+.sw[aria-checked=true]{background:var(--good)}
+.sw[aria-checked=true]::after{transform:translateX(22px)}
+.field{width:100%;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:10px 12px;min-height:44px}
+.field:focus{border-color:var(--river);outline:none}
+.toast{position:absolute;left:12px;right:12px;bottom:76px;background:var(--ink);color:var(--paper);padding:10px 14px;border-radius:12px;font-weight:600;font-size:13px;opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .2s,transform .2s;z-index:6}
+.toast.on{opacity:1;transform:none}
+.banner{position:absolute;top:8px;left:10px;right:10px;background:var(--saffron);color:var(--saffron-ink);border:0;border-radius:14px;padding:10px 14px;text-align:left;display:flex;flex-direction:column;gap:1px;font-size:13px;transform:translateY(-130%);transition:transform .25s;z-index:7;box-shadow:0 8px 20px -8px rgba(0,0,0,.5)}
+.banner.on{transform:none}
+.banner span{font-size:12px;opacity:.85}
+@media(prefers-reduced-motion:reduce){.toast,.banner,.sw::after{transition:none}}
+.price{font-family:var(--font-display);font-size:22px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+.shopc{display:flex;flex-direction:column;gap:8px}
+.shopc.closed{opacity:.62}
+.lines{display:grid;gap:6px;border-top:1px dashed var(--line);padding-top:8px}
+.lines .l{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:baseline;font-size:13px}
+.lines .l.x{color:var(--muted);text-decoration:line-through}
+.note{font-size:12px;color:var(--muted)}
+.insight{background:var(--saffron-soft);color:var(--saffron-ink);border-radius:12px;padding:10px 12px;font-size:13px;font-weight:600}
+.track{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:6px}
+.track div{font-size:11px;text-align:center;color:var(--muted);font-weight:600}
+.track div::before{content:"";display:block;height:6px;border-radius:3px;background:var(--line);margin-bottom:4px}
+.track div.on{color:var(--river)}
+.track div.on::before{background:var(--river)}
+.code{font-family:var(--font-display);font-size:34px;font-weight:800;letter-spacing:.2em;color:var(--river);text-align:center}
+.opts{display:grid;gap:6px}
+.opt{display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:9px 12px;text-align:left;min-height:46px;width:100%}
+.opt[aria-pressed=true]{border-color:var(--river);background:var(--river-soft)}
+.opt[disabled]{opacity:.45}
+.dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--muted);flex:none}
+.opt[aria-pressed=true] .dot{border:5px solid var(--river)}
+.openbig{display:flex;align-items:center;gap:12px;border-radius:16px;padding:14px;border:2px solid var(--line);background:var(--surface)}
+.openbig.on{background:var(--good-soft);border-color:var(--good)}
+.openbig.off{background:var(--chilli-soft);border-color:var(--chilli)}
+.openbig .state{font-family:var(--font-display);font-size:24px;font-weight:800;line-height:1.1}
+.stat{flex:1;min-width:0}
+.stat b{display:block;font-family:var(--font-display);font-size:20px;font-variant-numeric:tabular-nums}
+.stars{display:flex;gap:2px}
+.stars button{border:0;background:transparent;padding:4px;color:var(--line)}
+.stars button.on{color:var(--saffron)}
+.stars svg{width:26px;height:26px;fill:currentColor;stroke:none}
+.faq button.q{width:100%;border:0;background:transparent;text-align:left;font-weight:700;padding:2px 0;display:flex;gap:8px;align-items:center;min-height:44px}
+.faq .a{padding:0 0 8px;color:var(--muted);font-size:13px}
+.empty{text-align:center;color:var(--muted);padding:22px 12px}
+.gaps{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px}
+.gap-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 28px;margin-top:14px}
+@media(max-width:760px){.gap-grid{grid-template-columns:minmax(0,1fr)}}
+.gap-grid div{min-width:0}
+.gap-grid b{display:block}
+.gap-grid span{color:var(--muted)}
+.fine{color:var(--muted);font-size:12px;margin:0}
+
+
+/* app-only layout: one full-screen phone with a Customer / Shopkeeper switch */
+html,body{height:100%}
+body{padding:var(--sat) var(--sar) var(--sab) var(--sal);overflow:hidden;-webkit-tap-highlight-color:transparent}
+.wrap{max-width:none;height:100%;gap:0}
+.top,.gaps,.pw-label{display:none}
+.seg{display:flex;margin:8px auto;flex:none}
+.stage{flex:1;min-height:0;display:block}
+.pw{height:100%;gap:0}
+.phone{max-width:none;height:100%;padding:0;border-radius:0;box-shadow:none;background:transparent}
+.screen{border-radius:0}
+.stage[data-view=cust] .pw.shop,.stage[data-view=shop] .pw.cust{display:none}
+.sb{justify-content:center;padding-top:2px}
+.sb .clock{display:none}
+.toast{bottom:84px}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="eyebrow">Prototype · Vijayawada · sample data</div>
+      <h1>Mana Dukanam <span class="te-h">మన దుకాణం</span></h1>
+      <p class="lede">Find the nearby shop that is open, has your items and gives a good price. Both phones share one live state: change a price on the shopkeeper phone and the customer phone re-ranks.</p>
+    </div>
+    <aside class="try">
+      <div class="eyebrow">Try it in two minutes</div>
+      <ol>
+        <li>Customer phone: tap <b>Compare shops</b> for onion 1 kg and rice 5 kg.</li>
+        <li>Shopkeeper phone, Rates tab: set rice to 55. The customer list re-ranks.</li>
+        <li>Customer: tap <b>Ask all open shops</b>. The shopkeeper gets a request and sends a quote.</li>
+        <li>Customer picks a quote and orders. Shopkeeper accepts, marks ready, enters the pickup code.</li>
+        <li>Shopkeeper phone, Doubts tab: the 12 questions shopkeepers will ask you.</li>
+      </ol>
+    </aside>
+  </header>
+
+  <div class="seg" role="group" aria-label="Choose phone">
+    <button data-a="view" data-v="cust" aria-pressed="true">Customer</button>
+    <button data-a="view" data-v="shop" aria-pressed="false">Shopkeeper</button>
+  </div>
+
+  <main class="stage" data-view="cust">
+    <section class="pw cust">
+      <div class="pw-label">Customer · Ravi, Labbipet</div>
+      <div class="phone"><div class="screen" data-w="c">
+        <div class="sb"><span class="clock"></span><span>Sample data</span></div>
+        <div class="dyn" id="c-dyn"></div>
+        <div class="toast" id="c-toast" role="status"></div>
+        <button class="banner" id="c-ban" data-a="c-tab" data-v="orders"></button>
+      </div></div>
+    </section>
+    <section class="pw shop">
+      <div class="pw-label">Shopkeeper · Sri Lakshmi Kirana</div>
+      <div class="phone"><div class="screen" data-w="s">
+        <div class="sb"><span class="clock"></span><span>Sample data</span></div>
+        <div class="dyn" id="s-dyn"></div>
+        <div class="toast" id="s-toast" role="status"></div>
+        <button class="banner" id="s-ban" data-a="s-tab" data-v="orders"></button>
+      </div></div>
+    </section>
+  </main>
+
+  <section class="gaps">
+    <h2 class="sec">What this fixes</h2>
+    <p class="fine">Gaps found in the apps already on the market, and what this prototype does about each. Vijayawada specifics are marked.</p>
+    <div class="gap-grid">
+      <div><b>Stock is only a catalogue</b><span>Quote mode: the shop confirms in one tap. Prices older than a day are flagged as "may be old".</span></div>
+      <div><b>Shopkeepers will not type 200 prices</b><span>A rate board of 12 staples with plus/minus buttons, voice update and a one-tap "add item".</span></div>
+      <div><b>Small shops cannot pay for marketing</b><span>Each shop gets a link and QR to share with regulars. Neighbourhood search is free.</span></div>
+      <div><b>Orders get lost between apps</b><span>One shop, one order, one pickup code. No-shows can be released. UPI goes straight to the shop.</span></div>
+      <div><b>Credit customers are left out</b><span>Khata with a limit per customer, WhatsApp reminders, and the customer sees their own balance.</span></div>
+      <div><b>English-first apps</b><span>Telugu shop screens, Telugu item names, and search by Telugu words typed in English (ullipaya, biyyam).</span></div>
+      <div><b>Vegetable prices swing daily (Vijayawada)</b><span>Rythu Bazaar reference rate beside vegetables, and a 30 minute price lock on every quote. The rate needs a data source or manual entry.</span></div>
+      <div><b>Small baskets are not worth delivery</b><span>Pickup first, no minimum order, and the shop sets its own delivery fee and radius.</span></div>
+      <div><b>Local festivals (Vijayawada)</b><span>Ready-made lists: monthly ration, daily vegetables, Diwali and Karthika Masam sweets kit.</span></div>
+      <div><b>Local areas (Vijayawada)</b><span>Labbipet, Benz Circle, Governorpet, Patamata, Moghalrajpuram, Bhavanipuram, Gunadala, Auto Nagar, Kanuru and more.</span></div>
+    </div>
+    <p class="fine" style="margin-top:14px">Shop names, prices, ratings and counts are invented for this demo. Telugu text should be checked by a native speaker before shopkeepers see it.</p>
+  </section>
+</div>
+
+<script>
+(function(){
+'use strict';
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const inr=n=>'₹'+Math.round(n).toLocaleString('en-IN');
+
+const IC={
+ home:'<path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
+ list:'<path d="M9 4h6v3H9z"/><path d="M7 5H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-2"/><path d="M8 12h8M8 16h5"/>',
+ rupee:'<path d="M6 5h12M6 9h12M10 5c4 0 6 2 6 4s-2 4-6 4H6l8 7"/>',
+ book:'<path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/>',
+ help:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/>',
+ mic:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',
+ pin:'<path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+ check:'<path d="M5 12l5 5 9-10"/>',
+ clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+ bag:'<path d="M5 8h14l-1 12H6z"/><path d="M9 8a3 3 0 0 1 6 0"/>',
+ plus:'<path d="M12 5v14M5 12h14"/>',
+ minus:'<path d="M5 12h14"/>',
+ x:'<path d="M6 6l12 12M18 6L6 18"/>',
+ chev:'<path d="M9 6l6 6-6 6"/>',
+ down:'<path d="M6 9l6 6 6-6"/>',
+ back:'<path d="M15 6l-6 6 6 6"/>',
+ bike:'<circle cx="6" cy="17" r="3"/><circle cx="18" cy="17" r="3"/><path d="M6 17l4-8h5l3 8M9 9H7"/>',
+ send:'<path d="M4 12l16-8-6 16-3-7z"/>',
+ store:'<path d="M4 9l1-5h14l1 5M4 9a2.5 2.5 0 0 0 5 0 2.5 2.5 0 0 0 6 0 2.5 2.5 0 0 0 5 0M5 12v8h14v-8"/>',
+ star:'<path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.2l-5.5 3 1-6.2L3 9.6l6.2-.9z"/>'
+};
+const ic=(n,c='')=>`<svg class="ic ${c}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[n]}</svg>`;
+
+const ITEMS=[
+ {id:'onion',en:'Onion',te:'ఉల్లిపాయలు',alt:'ullipaya ullipayalu pyaz',u:'kg',step:.5,base:36,veg:1,ref:30},
+ {id:'rice',en:'Sona Masuri rice (loose)',te:'సోనా మసూరి బియ్యం',alt:'biyyam biyam sona masoori',u:'kg',step:1,base:58},
+ {id:'dal',en:'Toor dal',te:'కందిపప్పు',alt:'kandipappu kandi pappu arhar',u:'kg',step:.5,base:165},
+ {id:'oil',en:'Sunflower oil',te:'పొద్దుతిరుగుడు నూనె',alt:'nune noone',u:'L',step:1,base:128},
+ {id:'tomato',en:'Tomato',te:'టమాటా',alt:'tamata tomato',u:'kg',step:.5,base:38,veg:1,ref:34},
+ {id:'potato',en:'Potato',te:'బంగాళాదుంప',alt:'bangaladumpa aloo',u:'kg',step:.5,base:32,veg:1,ref:28},
+ {id:'sugar',en:'Sugar',te:'చక్కెర',alt:'chakkera panchadara',u:'kg',step:1,base:45},
+ {id:'atta',en:'Wheat flour (atta)',te:'గోధుమ పిండి',alt:'godhuma pindi gehu',u:'kg',step:1,base:43},
+ {id:'salt',en:'Salt',te:'ఉప్పు',alt:'uppu namak',u:'kg',step:1,base:23},
+ {id:'jaggery',en:'Jaggery',te:'బెల్లం',alt:'bellam gud',u:'kg',step:.5,base:70},
+ {id:'chilli',en:'Dry red chilli (Guntur)',te:'ఎండు మిర్చి',alt:'mirchi mirapakaya endu guntur',u:'kg',step:.25,base:282},
+ {id:'milk',en:'Milk',te:'పాలు',alt:'palu paalu doodh',u:'L',step:.5,base:60}
+];
+const ITEM=id=>ITEMS.find(i=>i.id===id);
+const ORD=ITEMS.map(i=>i.id);
+const P=a=>{const o={};ORD.forEach((k,i)=>o[k]=a[i]);return o};
+
+const SHOPS=[
+ {id:1,name:'Sri Lakshmi Kirana',d:120,rating:4.6,n:212,age:null,hours:'6:00 AM – 9:30 PM',open:true,del:{fee:20,free:300,km:1.5},khata:true,upi:true,tags:['Loose rice, 3 varieties','Family-run'],p:P([38,60,168,130,40,34,46,44,24,null,290,60])},
+ {id:2,name:'Annapurna Provision Store',d:240,rating:4.4,n:168,age:18,hours:'6:30 AM – 10:00 PM',open:true,del:{fee:25,free:400,km:1.2},khata:true,upi:true,tags:['Free delivery above ₹400'],p:P([36,58,165,128,38,32,45,43,22,null,280,60])},
+ {id:3,name:'Sai Ram Super Market',d:410,rating:4.5,n:340,age:9,hours:'7:00 AM – 9:00 PM',open:true,closesIn:20,del:{fee:30,free:500,km:2},khata:false,upi:true,tags:['Big store','Cards accepted'],p:P([34,56,160,126,36,31,44,42,22,68,285,58])},
+ {id:4,name:'Venkateswara General Stores',d:520,rating:4.3,n:95,age:40,hours:'6:00 AM – 9:00 PM',open:false,opens:'Opens 6:00 AM',del:{fee:20,free:300,km:1},khata:true,upi:true,tags:[],p:P([35,57,162,127,37,32,45,43,23,69,275,null])},
+ {id:5,name:'Krishna Fresh Mart',d:650,rating:4.7,n:410,age:6,hours:'5:30 AM – 9:30 PM',open:true,del:null,khata:false,upi:true,tags:['Fresh vegetables daily','Pickup only'],p:P([32,null,170,null,33,29,null,null,24,null,null,60])},
+ {id:6,name:'Rama Rao & Sons',d:780,rating:4.2,n:130,age:25,hours:'6:00 AM – 9:00 PM',open:true,del:{fee:40,free:800,km:2},khata:true,upi:true,min:{rice:5},tags:['Wholesale rates','Rice from 5 kg'],p:P([33,54,158,124,null,30,43,41,21,66,270,null])},
+ {id:7,name:'Durga Stores',d:900,rating:4.0,n:70,age:3000,hours:'7:00 AM – 9:30 PM',open:true,del:{fee:30,free:400,km:1.5},khata:false,upi:true,tags:[],p:P([37,59,166,129,39,33,46,44,23,71,288,61])},
+ {id:8,name:'Bhavani Super Bazaar',d:1200,rating:4.4,n:520,age:14,hours:'7:00 AM – 10:30 PM',open:true,del:{fee:30,free:600,km:3},khata:false,upi:true,tags:['Open till 10:30 PM'],p:P([35,55,161,125,36,31,44,42,22,67,282,58])}
+];
+const LOCS=['Labbipet','Benz Circle','Governorpet','Patamata','Moghalrajpuram','Bhavanipuram','Gunadala','Auto Nagar','Kanuru','Satyanarayanapuram','Currency Nagar','Ajit Singh Nagar'];
+const KITS=[
+ {k:'ration',l:'Monthly ration',i:[['rice',25],['dal',2],['oil',2],['sugar',2],['atta',5],['salt',1]]},
+ {k:'veg',l:'Daily vegetables',i:[['onion',1],['tomato',1],['potato',1]]},
+ {k:'sweets',l:'Diwali / Karthika Masam sweets',i:[['sugar',2],['jaggery',1],['atta',1],['milk',2]]}
+];
+
+const L={
+ en:{home:'Home',orders:'Orders',rates:'Rates',khata:'Khata',help:'Doubts',open:'OPEN',closed:'CLOSED',brkState:'BACK IN 10 MIN',
+  newreq:'New requests',send:'Send quote',stock:'In stock',out:'Out',today:`Today's rates`,all:'I have everything',accept:'Accept',acceptK:'Accept on khata',
+  ready:'Mark ready',handed:'Handed over',remind:'Remind',paid:'Paid',total:'Total',brk:'Back in 10 min',back:'I am back',sales:`Today's sales`,
+  ord:'Orders today',active:'Orders',due:'Due',add:'New entry',save:'Save',voice:'Speak a price',decline:`Can't supply`,code:'Pickup code',release:'Customer not here: release',
+  quote:'Quote now',noreq:'No requests right now. New ones also arrive as a WhatsApp message.',shop:'Shop',notlisted:'Not listed',addit:'Add'},
+ te:{home:'హోమ్',orders:'ఆర్డర్లు',rates:'ధరలు',khata:'ఖాతా',help:'సందేహాలు',open:'తెరిచి ఉంది',closed:'మూసి ఉంది',brkState:'త్వరలో వస్తాను',
+  newreq:'కొత్త అభ్యర్థనలు',send:'ధర పంపండి',stock:'ఉంది',out:'లేదు',today:'నేటి ధరలు',all:'అన్నీ ఉన్నాయి',accept:'అంగీకరించు',acceptK:'ఖాతాపై అంగీకరించు',
+  ready:'సిద్ధం',handed:'ఇచ్చేశాను',remind:'గుర్తు చేయి',paid:'చెల్లించారు',total:'మొత్తం',brk:'10 నిమిషాల్లో వస్తాను',back:'వచ్చేశాను',sales:'నేటి అమ్మకాలు',
+  ord:'నేటి ఆర్డర్లు',active:'ఆర్డర్లు',due:'బాకీ',add:'కొత్త ఎంట్రీ',save:'సేవ్',voice:'ధర చెప్పండి',decline:'ఇవ్వలేను',code:'కోడ్',release:'కస్టమర్ రాలేదు',
+  quote:'ధర చెప్పండి',noreq:'ప్రస్తుతం అభ్యర్థనలు లేవు. కొత్తవి WhatsApp లో కూడా వస్తాయి.',shop:'షాప్',notlisted:'జాబితాలో లేదు',addit:'చేర్చు'}
+};
+const FAQ=[
+ {q:['How much does this cost me?','నాకు ఎంత ఖర్చు అవుతుంది?'],a:`Proposed: free during the pilot. Later a small flat monthly fee. No cut of your sales on pickup orders. You keep what the customer pays.`},
+ {q:['Who can see my prices?','నా ధరలు ఎవరికి కనిపిస్తాయి?'],a:`Customers near you see your price when they search. Other shops never see it. You only see the area average for each item.`},
+ {q:['Customers will compare and buy the cheapest. Will I lose?','కస్టమర్లు తక్కువ ధర చూసి వెళ్లిపోతారా?'],a:`You set every price. Customers see distance, rating, khata and delivery next to price, so the cheapest shop does not always win. Your regulars use your own link and never see a list of rivals.`},
+ {q:['How much time does it take every day?','రోజుకు ఎంత సమయం పడుతుంది?'],a:`About 2 minutes in the morning on the rate board, then one tap per request. You can say a price instead of typing it.`},
+ {q:['How do I get my money?','డబ్బు నాకు ఎలా వస్తుంది?'],a:`UPI goes straight to your bank account. The app never holds your money. Cash and khata also work.`},
+ {q:['What if the customer never comes?','కస్టమర్ రాకపోతే ఏమవుతుంది?'],a:`The order is held for 30 minutes. If nobody comes, tap Release. Repeat no-shows are marked on that customer.`},
+ {q:['I have no delivery boy.','నా దగ్గర డెలివరీ అబ్బాయి లేడు.'],a:`Start with pickup only. Turn on delivery later for your own radius and set your own fee. Shared delivery partners can come after the pilot.`},
+ {q:['What about my khata customers?','నా ఖాతా కస్టమర్ల సంగతి ఏమిటి?'],a:`They stay yours. You set a limit per customer, approve each khata order, and send a WhatsApp reminder in one tap. The customer can see their own balance.`},
+ {q:['Blinkit and Zepto are here. Why will people buy from me?','Blinkit, Zepto ఉన్నాయి కదా, నా దగ్గర ఎందుకు కొంటారు?'],a:`You can offer what a warehouse app usually does not: khata, loose items by the half kg, a better price quote, and walk-in pickup with no delivery fee.`},
+ {q:['I do not know English and my internet is slow.','నాకు ఇంగ్లీష్ రాదు, ఇంటర్నెట్ స్లోగా ఉంది.'],a:`Proposed: the app runs in Telugu with voice. Every new request also arrives as a WhatsApp message you can answer from there.`},
+ {q:['What about bills and GST?','బిల్లు, GST సంగతి ఏమిటి?'],a:`Proposed: each order makes a simple bill automatically. If you are GST registered, add your GSTIN once and it prints on the bill.`},
+ {q:['What if a customer complains about quality?','నాణ్యత గురించి ఫిర్యాదు వస్తే?'],a:`Customers rate every order and you can reply once. For a wrong or bad item you replace it or refund directly. The app steps in only if you both ask.`}
+];
+
+const S={
+ loc:'Labbipet',
+ list:[{id:'onion',qty:1},{id:'rice',qty:5}],
+ sort:'best',f:{open:false,all:false,del:false,khata:false},exp:null,
+ c:{screen:'home',from:'results',reqId:null,pick:null,locOpen:false,q:''},
+ s:{tab:'home',lang:'en',reqOpen:null,draft:null,faq:0,kform:false,kcust:0,kamt:200},
+ shop:{open:true,brk:false,rates:Object.assign({},SHOPS[0].p),out:{},updated:Date.now()-4*60000,sales:3420,orders:7},
+ khata:{due:450,limit:2000},
+ kl:[{n:'Padmavathi garu',a:1260,last:'12 days ago'},{n:'Suresh Babu',a:820,last:'3 days ago'},{n:'Naga Lakshmi',a:300,last:'1 day ago'}],
+ reqs:[],orders:[],seq:{req:200,ord:1040},timers:[],reset:{c:false,s:false}
+};
+
+function fmtQty(q,u){
+ if(u==='kg'&&q<1)return Math.round(q*1000)+' g';
+ if(u==='L'&&q<1)return Math.round(q*1000)+' ml';
+ return q+' '+u;
+}
+const isOpen=s=>s.id===1?(S.shop.open&&!S.shop.brk):s.open;
+const ageMin=s=>s.id===1?Math.round((Date.now()-S.shop.updated)/60000):s.age;
+function ageText(m){
+ if(m<1)return 'just now';
+ if(m<60)return m+' min ago';
+ if(m<1440)return Math.round(m/60)+' h ago';
+ return Math.round(m/1440)+' days ago';
+}
+function distOf(s){
+ const k=LOCS.indexOf(S.loc);
+ if(k<=0)return s.d;
+ const f=0.6+((k*7+s.id*13)%9)/10;
+ return Math.max(60,Math.round(s.d*f/10)*10);
+}
+const distText=m=>m<1000?m+' m':(m/1000).toFixed(1)+' km';
+function priceOf(s,id){
+ if(s.id===1){return S.shop.out[id]?null:S.shop.rates[id]}
+ return s.p[id];
+}
+function lineFor(s,it){
+ const pr=priceOf(s,it.id);
+ if(pr==null)return {id:it.id,qty:it.qty,price:null,why:'Not in stock'};
+ const m=s.min&&s.min[it.id];
+ if(m&&it.qty<m)return {id:it.id,qty:it.qty,price:null,why:'Minimum '+m+' kg'};
+ return {id:it.id,qty:it.qty,price:pr,amt:Math.round(pr*it.qty)};
+}
+function calc(s,items){
+ items=items||S.list;
+ const lines=items.map(it=>lineFor(s,it));
+ const ok=lines.filter(l=>l.price!=null);
+ const miss=lines.filter(l=>l.price==null);
+ const total=ok.reduce((a,l)=>a+l.amt,0);
+ const dist=distOf(s);
+ const delOk=!!(s.del&&dist<=s.del.km*1000);
+ const fee=delOk?(total>=s.del.free?0:s.del.fee):null;
+ return {s,lines,ok,miss,total,dist,delOk,fee,open:isOpen(s),stale:ageMin(s)>=1440};
+}
+function ranked(){
+ let rs=SHOPS.map(s=>calc(s));
+ if(S.f.open)rs=rs.filter(r=>r.open);
+ if(S.f.all)rs=rs.filter(r=>!r.miss.length);
+ if(S.f.del)rs=rs.filter(r=>r.delOk);
+ if(S.f.khata)rs=rs.filter(r=>r.s.khata);
+ rs=rs.filter(r=>r.ok.length>0);
+ const cost=r=>r.total+r.miss.length*1000+r.dist/40+(5-r.s.rating)*12+(r.stale?30:0);
+ const key={best:cost,cheap:r=>r.miss.length*1e5+r.total,near:r=>r.dist}[S.sort];
+ rs.sort((a,b)=>(a.open===b.open?0:a.open?-1:1)||key(a)-key(b));
+ return rs;
+}
+function areaAvg(id){
+ const v=SHOPS.filter(s=>s.id!==1&&s.open&&s.p[id]!=null).map(s=>s.p[id]);
+ return v.length?Math.round(v.reduce((a,b)=>a+b,0)/v.length):null;
+}
+
+/* ---------- shared UI helpers ---------- */
+const hhmm=d=>d.toLocaleTimeString('en-IN',{hour:'numeric',minute:'2-digit'});
+const short=n=>n.split(' (')[0];
+function toast(w,msg){const t=$('#'+w+'-toast');t.textContent=msg;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2400);}
+function banner(w,title,sub){const b=$('#'+w+'-ban');b.innerHTML='<b>'+title+'</b><span>'+sub+'</span>';b.classList.add('on');clearTimeout(b._t);b._t=setTimeout(()=>b.classList.remove('on'),4500);}
+function abar(title,o){o=o||{};return `<div class="ab">${o.back?`<button class="icb" data-a="${o.back}" aria-label="Back">${ic('back')}</button>`:`<div class="logo">${ic('bag')}</div>`}<h2>${title}</h2>${o.right||''}</div>`;}
+function tabbar(w,items,cur){return `<nav class="tabs">${items.map(t=>`<button data-a="${w}-tab" data-v="${t.k}" ${t.k===cur?'aria-current="true"':''}>${ic(t.i)}<span>${t.l}</span>${t.b?`<span class="badge">${t.b}</span>`:''}</button>`).join('')}</nav>`;}
+function paint(w){
+ const el=$('#'+w+'-dyn');
+ const old=$('.content',el);const top=old?old.scrollTop:0;
+ el.innerHTML=w==='c'?custView():shopView();
+ const n=$('.content',el);
+ if(n)n.scrollTop=S.reset[w]?0:top;
+ S.reset[w]=false;
+ if(w==='c'){const i=$('#c-search');if(i)i.value=S.c.q;}
+}
+function sync(){paint('c');paint('s');}
+function goC(screen){S.c.screen=screen;S.reset.c=true;}
+
+/* ---------- customer ---------- */
+function custView(){
+ const sc=S.c.screen;
+ const act=S.orders.filter(o=>o.status!=='done'&&o.status!=='cancelled').length;
+ const tab=sc==='orders'?'orders':sc==='khata'?'khata':'home';
+ let v;
+ if(sc==='results')v=custResults();
+ else if(sc==='shop')v=custShop();
+ else if(sc==='quotes')v=custQuotes();
+ else if(sc==='orders')v=custOrders();
+ else if(sc==='khata')v=custKhata();
+ else v=custHome();
+ return v+tabbar('c',[{k:'home',l:'Shop',i:'bag'},{k:'orders',l:'Orders',i:'list',b:act},{k:'khata',l:'My khata',i:'book'}],tab);
+}
+function qtyCtl(id,qty){
+ const m=ITEM(id);
+ return `<div class="step"><button data-a="qty" data-v="${id}|-1" aria-label="Less ${short(m.en)}">${ic('minus')}</button><span>${fmtQty(qty,m.u)}</span><button data-a="qty" data-v="${id}|1" aria-label="More ${short(m.en)}">${ic('plus')}</button></div>`;
+}
+function sugChips(){
+ const q=S.c.q.trim().toLowerCase();
+ const inList=new Set(S.list.map(x=>x.id));
+ let r=ITEMS.filter(i=>!inList.has(i.id));
+ if(q)r=r.filter(i=>(i.en+' '+i.te+' '+i.alt).toLowerCase().includes(q));
+ r=r.slice(0,q?6:8);
+ return r.length?r.map(i=>`<button class="chip" data-a="add" data-v="${i.id}">${ic('plus')}${short(i.en)} <span class="te">${i.te}</span></button>`).join(''):'<span class="note">No match. Try another spelling.</span>';
+}
+function custHome(){
+ const n=SHOPS.filter(isOpen).length;
+ const rows=S.list.length?S.list.map(it=>{const m=ITEM(it.id);return `<div class="card row"><div class="grow"><b>${short(m.en)}</b><div class="te">${m.te}</div></div>${qtyCtl(it.id,it.qty)}<button class="icb" data-a="rm" data-v="${it.id}" aria-label="Remove ${short(m.en)}">${ic('x')}</button></div>`}).join(''):'<div class="card flat empty">Your list is empty. Add items below or pick a ready-made list.</div>';
+ const locCard=S.c.locOpen?`<div class="card"><div class="eyebrow" style="margin-bottom:8px">Pick your area</div><div class="chips">${LOCS.map(l=>`<button class="chip" data-a="loc" data-v="${l}" aria-pressed="${l===S.loc}">${l}</button>`).join('')}</div><div class="note" style="margin-top:8px">Distances in this demo are samples and change with the area.</div></div>`:'';
+ return abar('Mana Dukanam',{right:`<button class="chip" data-a="loc-toggle">${ic('pin')}${S.loc}${ic('down')}</button>`})
+ +`<div class="content">${locCard}<div class="eyebrow">Your list</div>${rows}
+  <div class="eyebrow">Add item</div>
+  <div class="row"><input id="c-search" class="field" placeholder="Type: onion, ullipaya, ఉల్లి" autocomplete="off" aria-label="Search item"><button class="icb big" data-a="mic" aria-label="Speak an item">${ic('mic')}</button></div>
+  <div class="chips" id="c-sug">${sugChips()}</div>
+  <div class="eyebrow">Ready-made lists</div>
+  <div class="chips">${KITS.map(k=>`<button class="chip" data-a="kit" data-v="${k.k}">${k.l}</button>`).join('')}</div>
+  <div class="note">${n} of ${SHOPS.length} shops are open near ${S.loc}.</div></div>`
+ +`<div class="foot"><button class="btn block" data-a="compare" ${S.list.length?'':'disabled'}>${ic('store')}Compare shops</button><button class="btn ghost block" data-a="ask" ${S.list.length?'':'disabled'}>${ic('send')}Ask all open shops for a quote</button></div>`;
+}
+function listSummary(){return S.list.map(i=>short(ITEM(i.id).en)+' '+fmtQty(i.qty,ITEM(i.id).u)).join(', ');}
+function custResults(){
+ const rs=ranked();
+ const full=SHOPS.map(s=>calc(s)).filter(r=>r.open&&!r.miss.length);
+ const cheap=full.slice().sort((a,b)=>a.total-b.total)[0];
+ const near=full.slice().sort((a,b)=>a.dist-b.dist)[0];
+ let ins='';
+ if(cheap&&near){
+  ins=(cheap.s.id===near.s.id||cheap.total===near.total)
+   ?`${near.s.name} is the nearest and also the lowest price.`
+   :`${cheap.s.name} is ${inr(near.total-cheap.total)} cheaper than the nearest shop, ${near.s.name}, but ${cheap.dist-near.dist} m farther.`;
+ }
+ const sorts=[['best','Best match'],['cheap','Lowest price'],['near','Nearest']];
+ const filts=[['open','Open now'],['all','Has all items'],['del','Delivers'],['khata','Khata']];
+ const cards=rs.map((r,i)=>shopCard(r,i,cheap,near)).join('')||'<div class="card flat empty">No shop matches these filters. Try removing one.</div>';
+ return abar('Shops for your list',{back:'c-back'})
+ +`<div class="content"><div class="note">${listSummary()}</div>
+  ${ins?`<div class="insight">${ins}</div>`:''}
+  <div class="chips">${sorts.map(x=>`<button class="chip" data-a="sort" data-v="${x[0]}" aria-pressed="${S.sort===x[0]}">${x[1]}</button>`).join('')}</div>
+  <div class="chips">${filts.map(x=>`<button class="chip" data-a="filt" data-v="${x[0]}" aria-pressed="${S.f[x[0]]}">${x[1]}</button>`).join('')}</div>
+  ${cards}</div>`;
+}
+function shopCard(r,idx,cheap,near){
+ const s=r.s,m=ageMin(s);
+ const b=[];
+ if(!r.open)b.push(`<span class="pill bad">${s.opens||'Closed now'}</span>`);
+ else if(s.closesIn)b.push(`<span class="pill warn">Closes in ${s.closesIn} min</span>`);
+ else b.push('<span class="pill good">Open</span>');
+ if(S.sort==='best'&&idx===0&&r.open)b.push('<span class="pill">Best match</span>');
+ if(cheap&&s.id===cheap.s.id)b.push('<span class="pill warn">Lowest price</span>');
+ if(near&&s.id===near.s.id)b.push('<span class="pill">Nearest</span>');
+ if(r.stale)b.push('<span class="pill mute">Price may be old</span>');
+ const miss=r.miss.length?`<span class="pill bad">Missing: ${r.miss.map(l=>short(ITEM(l.id).en)+(l.why.indexOf('Min')===0?' ('+l.why.toLowerCase()+')':'')).join(', ')}</span>`:`<span class="pill good">Has all ${r.lines.length} items</span>`;
+ const svc=[];
+ svc.push(r.delOk?`<span class="pill mute">${ic('bike')}Delivery ${r.fee?inr(r.fee):'free'}</span>`:`<span class="pill mute">${s.del?'Delivery: too far':'Pickup only'}</span>`);
+ if(s.khata)svc.push('<span class="pill mute">Khata</span>');
+ if(s.tags[0])svc.push(`<span class="pill mute">${s.tags[0]}</span>`);
+ const open=S.exp===s.id;
+ const det=open?`<div class="lines">${r.lines.map(l=>{const it=ITEM(l.id);const ref=(it.veg&&l.price!=null)?` <span class="te">Rythu Bazaar ${inr(it.ref)}</span>`:'';return l.price!=null?`<div class="l"><span>${short(it.en)}${ref}</span><span class="muted">${fmtQty(l.qty,it.u)} × ${inr(l.price)}</span><span class="num">${inr(l.amt)}</span></div>`:`<div class="l x"><span>${short(it.en)}</span><span>${l.why}</span><span></span></div>`}).join('')}<div class="note">Rythu Bazaar rates here are samples.</div></div>`:'';
+ return `<article class="card shopc ${r.open?'':'closed'}">
+  <div class="row" style="align-items:flex-start"><div class="grow"><div class="chips" style="margin-bottom:4px">${b.join('')}</div><b>${s.name}</b><div class="small muted">${distText(r.dist)} · ★ ${s.rating} (${s.n}) · price ${ageText(m)}</div></div>
+  <div class="right"><div class="price">${r.stale?'~':''}${inr(r.total)}</div><div class="small muted">${r.miss.length?r.ok.length+' of '+r.lines.length+' items':'for all items'}</div></div></div>
+  <div class="chips">${miss}${svc.join('')}</div>${det}
+  <div class="row"><button class="btn ghost sm" data-a="exp" data-v="${s.id}">${open?'Hide':'Item prices'}</button><button class="btn sm grow" data-a="pick" data-v="${s.id}" ${r.open?'':'disabled'}>${r.open?'Order here':'Closed'}</button></div></article>`;
+}
+function custShop(){
+ const p=S.c.pick,s=SHOPS.find(x=>x.id===p.shopId),r=calc(s),q=p.quote;
+ const lines=q?q.lines:r.ok,miss=q?q.miss:r.miss,tot=q?q.total:r.total;
+ if(p.mode==='delivery'&&!r.delOk)p.mode='pickup';
+ const fee=p.mode==='delivery'?(tot>=s.del.free?0:s.del.fee):0;
+ const lk=new Date(Date.now()+30*60000);
+ const lh=lines.map(l=>{const it=ITEM(l.id);const ref=it.veg?` <span class="te">Rythu Bazaar ${inr(it.ref)}</span>`:'';return `<div class="l"><span>${short(it.en)}<div class="te">${it.te}${ref}</div></span><span class="muted">${fmtQty(l.qty,it.u)} × ${inr(l.price)}</span><span class="num">${inr(l.amt)}</span></div>`}).join('');
+ const opt=(act,val,cur,label,sub,dis)=>`<button class="opt" data-a="${act}" data-v="${val}" aria-pressed="${cur===val}" ${dis?'disabled':''}><span class="dot"></span><span class="grow"><b>${label}</b><div class="small muted">${sub}</div></span></button>`;
+ const subOpts=miss.length?`<div class="eyebrow">If an item is missing</div><div class="chips"><button class="chip" data-a="sub" data-v="call" aria-pressed="${p.sub==='call'}">Call me</button><button class="chip" data-a="sub" data-v="skip" aria-pressed="${p.sub==='skip'}">Skip it</button></div>`:'';
+ return abar(s.name,{back:'c-back'})
+ +`<div class="content">
+  <div class="card"><div class="lines" style="border:0;padding:0">${lh}${miss.map(l=>`<div class="l x"><span>${short(ITEM(l.id).en)}</span><span>${l.why}</span><span></span></div>`).join('')}</div>
+  ${q&&q.disc?`<div class="row" style="margin-top:8px"><span class="grow small muted">Shop discount</span><span class="num">−${inr(q.disc)}</span></div>`:''}
+  <div class="note" style="margin-top:8px">${q?'Price locked until '+hhmm(lk)+'.':'Price as shown by the shop, '+ageText(ageMin(s))+'.'}</div></div>
+  ${subOpts}
+  <div class="eyebrow">How do you want it</div><div class="opts">
+   ${opt('mode','pickup',p.mode,'Pickup','Ready in about 10 min. Held for 30 min.')}
+   ${opt('mode','delivery',p.mode,'Home delivery',r.delOk?('Fee '+(tot>=s.del.free?'free':inr(s.del.fee))+' (free above '+inr(s.del.free)+')'):(s.del?'Too far for this shop':'This shop is pickup only'),!r.delOk)}</div>
+  <div class="eyebrow">How do you pay</div><div class="opts">
+   ${s.upi?opt('pay','upi',p.pay,'UPI','Goes straight to the shop'):''}
+   ${opt('pay','cash',p.pay,'Cash','Pay when you collect')}
+   ${s.khata?opt('pay','khata',p.pay,'Khata','The shop must approve'+(s.id===1?'. Due '+inr(S.khata.due)+', limit '+inr(S.khata.limit):'')):''}</div></div>`
+ +`<div class="foot"><div class="row"><span class="grow muted">To pay${fee?' (incl. delivery '+inr(fee)+')':''}</span><span class="price">${inr(tot+fee)}</span></div><button class="btn block" data-a="place" ${lines.length?'':'disabled'}>${ic('check')}Place order</button></div>`;
+}
+function custQuotes(){
+ const r=S.reqs.find(x=>x.id===S.c.reqId);
+ if(!r)return abar('Quotes',{back:'c-back'})+'<div class="content"><div class="empty">No request yet.</div></div>';
+ const qs=r.quotes.slice().sort((a,b)=>a.miss.length-b.miss.length||a.total-b.total);
+ const best=qs.find(q=>!q.miss.length);
+ const wait=!r.quotes.some(q=>q.shopId===1)?`<div class="card flat row"><span class="logo" style="background:var(--saffron);color:var(--saffron-ink)">${ic(r.declined1?'x':'clock')}</span><div class="grow"><b>Sri Lakshmi Kirana</b><div class="small muted">${distText(distOf(SHOPS[0]))} · ${r.declined1?'cannot supply this list':'waiting for their reply'}</div></div></div>`:'';
+ const cards=qs.map(q=>{
+  const s=SHOPS.find(x=>x.id===q.shopId);
+  return `<article class="card shopc"><div class="row" style="align-items:flex-start"><div class="grow">${best&&q===best?'<span class="pill warn">Lowest price</span> ':''}<b>${s.name}</b><div class="small muted">${distText(distOf(s))} · ★ ${s.rating} (${s.n})</div></div><div class="right"><div class="price">${inr(q.total)}</div><div class="small muted">${q.miss.length?q.lines.length+' of '+(q.lines.length+q.miss.length)+' items':'for all items'}</div></div></div>
+  ${q.note?`<div class="small">${q.note}</div>`:''}
+  ${q.miss.length?`<div class="chips"><span class="pill bad">Missing: ${q.miss.map(l=>short(ITEM(l.id).en)).join(', ')}</span></div>`:''}
+  <button class="btn sm block" data-a="pickq" data-v="${r.id}|${q.shopId}">Choose this quote</button></article>`}).join('');
+ return abar('Quotes for your list',{back:'c-back'})
+ +`<div class="content"><div class="note">${listSummary()}</div>
+  <div class="insight">Asked ${r.asked} open shops. ${r.quotes.length} replied so far. Quotes stay valid for 10 minutes and the price locks for 30 minutes once you choose.</div>
+  ${wait}${cards}${r.quotes.length?'':'<div class="empty">Quotes will appear here as shops reply.</div>'}</div>`;
+}
+function orderCard(o){
+ const s=SHOPS.find(x=>x.id===o.shopId);
+ const idx={placed:0,accepted:1,ready:2,done:3}[o.status];
+ const st={placed:['warn','Waiting for shop'],accepted:['','Accepted'],ready:['good','Ready'],done:['good','Done'],cancelled:['bad','Cancelled by shop']}[o.status];
+ const live=o.status!=='done'&&o.status!=='cancelled';
+ const names=o.lines.map(l=>short(ITEM(l.id).en)+' '+fmtQty(l.qty,ITEM(l.id).u)).join(', ');
+ return `<article class="card shopc"><div class="row"><div class="grow"><b>${s.name}</b><div class="small muted">Order #${o.id} · ${o.mode==='delivery'?'Delivery':'Pickup'} · ${o.pay==='upi'?'UPI':o.pay==='khata'?'Khata':'Cash'}</div></div><span class="pill ${st[0]}">${st[1]}</span></div>
+ <div class="small">${names}</div><div class="row"><span class="grow muted">Total</span><span class="num">${inr(o.total+o.fee)}</span></div>
+ ${o.status!=='cancelled'?`<div class="track">${['Sent','Accepted','Ready','Done'].map((x,i)=>`<div class="${i<=idx?'on':''}">${x}</div>`).join('')}</div>`:''}
+ ${live?`<div><div class="code" aria-label="Pickup code">${o.code}</div><div class="note right" style="text-align:center">Tell this code to the shopkeeper. Held for 30 minutes.</div></div>`:''}
+ ${o.status==='ready'&&o.shopId!==1?`<button class="btn sm block" data-a="collect" data-v="${o.id}">I collected it (demo)</button>`:''}
+ ${o.status==='done'?`<div class="row"><span class="grow small muted">${o.rated?'Thanks for rating':'Rate this shop'}</span><div class="stars">${[1,2,3,4,5].map(n=>`<button data-a="rate" data-v="${o.id}|${n}" class="${n<=o.rated?'on':''}" aria-label="${n} stars"><svg viewBox="0 0 24 24">${IC.star}</svg></button>`).join('')}</div></div>`:''}</article>`;
+}
+function custOrders(){
+ return abar('Your orders')+`<div class="content">${S.orders.length?S.orders.map(orderCard).join(''):'<div class="card flat empty">No orders yet. Compare shops or ask for quotes to place one.</div>'}</div>`;
+}
+function custKhata(){
+ const pct=Math.min(100,Math.round(S.khata.due/S.khata.limit*100));
+ return abar('My khata')+`<div class="content"><div class="card shopc"><div class="row"><div class="grow"><b>Sri Lakshmi Kirana</b><div class="small muted">Your credit limit ${inr(S.khata.limit)}</div></div><div class="right"><div class="price">${inr(S.khata.due)}</div><div class="small muted">due</div></div></div>
+ <div style="height:8px;border-radius:4px;background:var(--line)"><div style="height:8px;border-radius:4px;background:var(--river);width:${pct}%"></div></div>
+ <button class="btn sm block" data-a="kpay">Pay by UPI</button></div>
+ <div class="note">You see the same balance as the shopkeeper. No more arguing over the notebook.</div></div>`;
+}
+
+/* ---------- shopkeeper ---------- */
+const t=k=>L[S.s.lang][k]||L.en[k]||k;
+const nm=m=>S.s.lang==='te'?`<b>${m.te}</b><div class="te">${short(m.en)}</div>`:`<b>${short(m.en)}</b><div class="te">${m.te}</div>`;
+const shopOrds=()=>S.orders.filter(o=>o.shopId===1);
+const newReqs=()=>S.reqs.filter(r=>!r.quotes.some(q=>q.shopId===1)&&!r.declined1);
+function shopView(){
+ const tab=S.s.tab;
+ const badge=newReqs().length+shopOrds().filter(o=>o.status==='placed').length;
+ let v;
+ if(tab==='orders')v=S.s.reqOpen?shopReq():shopOrders();
+ else if(tab==='rates')v=shopRates();
+ else if(tab==='khata')v=shopKhata();
+ else if(tab==='help')v=shopHelp();
+ else v=shopHome();
+ return v+tabbar('s',[{k:'home',l:t('home'),i:'home'},{k:'orders',l:t('orders'),i:'list',b:badge},{k:'rates',l:t('rates'),i:'rupee'},{k:'khata',l:t('khata'),i:'book'},{k:'help',l:t('help'),i:'help'}],tab);
+}
+function sbar(title,back){
+ return abar(title,{back:back,right:`<button class="chip" data-a="s-lang" aria-label="Change language">${S.s.lang==='en'?'తెలుగు':'English'}</button>`}).replace(/<div class="logo">.*?<\/div>/,`<div class="logo">${ic('store')}</div>`);
+}
+function shopHome(){
+ const o=S.shop,live=o.open&&!o.brk;
+ const state=live?t('open'):(o.brk?t('brkState'):t('closed'));
+ const gaps=['onion','rice','dal','oil'].map(id=>({id,diff:o.rates[id]==null?0:o.rates[id]-areaAvg(id)})).sort((a,b)=>b.diff-a.diff)[0];
+ const priceIns=gaps.diff>=3?`Your ${short(ITEM(gaps.id).en).toLowerCase()} is ${inr(gaps.diff)} above the area average of ${inr(areaAvg(gaps.id))}. Customers who compare may pick a cheaper shop.`:'Your main prices are in line with the area average.';
+ const jag=o.rates.jaggery==null?`<div class="card"><b>14 people near you searched for jaggery this week</b><div class="small muted">Sample number. You do not list it yet, so they could not find you.</div><button class="btn sm" style="margin-top:8px" data-a="s-addjag">${ic('plus')}Add jaggery at ${inr(ITEM('jaggery').base)}</button></div>`:'';
+ const pend=newReqs().length,pOrd=shopOrds().filter(x=>x.status!=='done'&&x.status!=='cancelled').length;
+ return sbar('Sri Lakshmi Kirana')
+ +`<div class="content">
+ <div class="openbig ${live?'on':'off'}"><div class="grow"><div class="eyebrow">${t('shop')}</div><div class="state">${state}</div><div class="small muted">${SHOPS[0].hours}</div></div><button class="sw" role="switch" aria-checked="${o.open}" data-a="s-open" aria-label="Shop open or closed"></button></div>
+ <button class="btn ghost block" data-a="s-break">${ic('clock')}${o.brk?t('back'):t('brk')}</button>
+ <div class="row"><div class="card stat"><span class="note">${t('sales')}</span><b>${inr(o.sales)}</b></div><div class="card stat"><span class="note">${t('ord')}</span><b>${o.orders}</b></div></div>
+ ${(pend||pOrd)?`<button class="btn sun block" data-a="s-tab" data-v="orders">${pend?pend+' '+t('newreq').toLowerCase():''}${pend&&pOrd?' · ':''}${pOrd?pOrd+' '+t('active').toLowerCase():''}</button>`:''}
+ ${jag}
+ <div class="card"><b>Price check</b><div class="small muted">${priceIns}</div></div>
+ <div class="card"><b>Your own shop link</b><div class="small muted">Share it with regulars on WhatsApp. They order from you without seeing other shops.</div>
+  <div class="row" style="margin-top:8px"><input class="field" readonly value="mana-dukanam.app/s/sri-lakshmi" aria-label="Shop link" id="s-link"><button class="btn sm" data-a="s-copy">Copy</button></div><div class="note">Sample link.</div></div>
+ </div>`;
+}
+function shopOrders(){
+ const rq=newReqs().map(r=>`<div class="card shopc"><div class="row"><div class="grow"><b>Ravi Teja · Labbipet</b><div class="small muted">${distText(distOf(SHOPS[0]))} · ${r.items.length} items</div></div><span class="pill warn">New</span></div><div class="small">${r.items.map(i=>(S.s.lang==='te'?ITEM(i.id).te:short(ITEM(i.id).en))+' '+fmtQty(i.qty,ITEM(i.id).u)).join(', ')}</div><button class="btn block" data-a="s-reqopen" data-v="${r.id}">${ic('send')}${t('quote')}</button></div>`).join('');
+ const rank={placed:0,accepted:1,ready:2,done:3,cancelled:4};
+ const os=shopOrds().slice().sort((a,b)=>rank[a.status]-rank[b.status]||b.id-a.id).slice(0,6);
+ return sbar(t('orders'))
+ +`<div class="content">${rq?`<div class="eyebrow">${t('newreq')}</div>${rq}`:''}
+ ${os.length?`<div class="eyebrow">${t('active')}</div>${os.map(shopOrderCard).join('')}`:''}
+ ${(!rq&&!os.length)?`<div class="card flat empty">${t('noreq')}</div>`:''}</div>`;
+}
+function shopOrderCard(o){
+ const kh=o.pay==='khata';
+ const after=S.khata.due+o.total+o.fee;
+ const lines=o.lines.map(l=>{const m=ITEM(l.id);return `<div class="l"><span>${S.s.lang==='te'?m.te:short(m.en)}</span><span class="muted">${fmtQty(l.qty,m.u)}</span><span class="num">${inr(l.amt)}</span></div>`}).join('');
+ let act='';
+ if(o.status==='placed'){
+  act=(kh?`<div class="insight">Khata: due ${inr(S.khata.due)}, limit ${inr(S.khata.limit)}. After this order ${inr(after)}${after>S.khata.limit?' (over the limit)':''}.</div>`:'')
+  +`<div class="row"><button class="btn warn grow" data-a="s-decline" data-v="${o.id}">${t('decline')}</button><button class="btn grow" data-a="s-accept" data-v="${o.id}">${kh?t('acceptK'):t('accept')}</button></div>`;
+ }else if(o.status==='accepted'){
+  act=`<button class="btn block" data-a="s-ready" data-v="${o.id}">${ic('check')}${t('ready')}</button>`;
+ }else if(o.status==='ready'){
+  act=`<div class="row"><input class="field" id="code-${o.id}" inputmode="numeric" maxlength="4" placeholder="${t('code')}" aria-label="${t('code')}"><button class="btn" data-a="s-done" data-v="${o.id}">${t('handed')}</button></div><button class="btn ghost sm block" data-a="s-release" data-v="${o.id}">${t('release')}</button><div class="note">Held for 30 minutes. Ask the customer for the 4-digit code.</div>`;
+ }
+ const st={placed:['warn','New'],accepted:['','Packing'],ready:['good','Ready'],done:['good','Done'],cancelled:['bad','Cancelled']}[o.status];
+ return `<article class="card shopc"><div class="row"><div class="grow"><b>#${o.id} · ${o.cust}</b><div class="small muted">${o.area} · ${o.mode==='delivery'?'Delivery':'Pickup'}</div></div><span class="pill ${st[0]}">${st[1]}</span></div>
+ <div class="chips"><span class="pill mute">${o.pay==='upi'?'UPI direct to you':o.pay==='khata'?'Khata':'Cash'}</span>${o.sub?`<span class="pill mute">${o.sub==='call'?'Call if missing':'Skip if missing'}</span>`:''}</div>
+ <div class="lines">${lines}<div class="row"><span class="grow muted">${t('total')}</span><span class="num">${inr(o.total+o.fee)}</span></div></div>${act}</article>`;
+}
+function draftTotal(r,d){
+ return r.items.reduce((a,it)=>{
+  const un=S.shop.rates[it.id]==null;
+  if(d.out[it.id]||un)return a;
+  return a+Math.round((d.price[it.id]!=null?d.price[it.id]:S.shop.rates[it.id])*it.qty);
+ },0);
+}
+function shopReq(){
+ const r=S.reqs.find(x=>x.id===S.s.reqOpen),d=S.s.draft;
+ const rows=r.items.map(it=>{
+  const m=ITEM(it.id),un=S.shop.rates[it.id]==null,out=d.out[it.id]||un;
+  const pr=d.price[it.id]!=null?d.price[it.id]:S.shop.rates[it.id];
+  return `<div class="card shopc" style="${out?'opacity:.6':''}"><div class="row"><div class="grow">${nm(m)}<div class="small muted">${fmtQty(it.qty,m.u)}${un?' · '+t('notlisted'):''}</div></div><div style="text-align:center"><button class="sw" role="switch" aria-checked="${!out}" data-a="s-dstock" data-v="${it.id}" aria-label="${short(m.en)} available" ${un?'disabled':''}></button><div class="small">${out?t('out'):t('stock')}</div></div></div>
+  ${out?'':`<div class="row"><div class="step"><button data-a="s-dprice" data-v="${it.id}|-1" aria-label="Lower price">${ic('minus')}</button><input type="number" inputmode="numeric" value="${pr}" data-c="dprice" data-v="${it.id}" aria-label="Price per ${m.u}"><button data-a="s-dprice" data-v="${it.id}|1" aria-label="Raise price">${ic('plus')}</button></div><span class="small muted">per ${m.u}</span><span class="grow"></span><span class="num">${inr(pr*it.qty)}</span></div>`}</div>`;
+ }).join('');
+ const others=SHOPS.filter(s=>s.id!==1).map(s=>calc(s,r.items)).filter(c=>c.open&&!c.miss.length);
+ const avg=others.length>=2?Math.round(others.reduce((a,c)=>a+c.total,0)/others.length):null;
+ const tot=draftTotal(r,d);
+ const notes=['Free delivery today','Fresh stock today','Khata OK'];
+ return abar('Request #'+r.id,{back:'s-reqback'})
+ +`<div class="content"><div class="card"><b>Ravi Teja · Labbipet</b><div class="small muted">${distText(distOf(SHOPS[0]))} away · phone number is shared after you accept the order</div></div>
+ ${avg?`<div class="insight">Area average for this list: ${inr(avg)} (${others.length} shops). Other shops' prices stay private.</div>`:''}
+ ${rows}
+ <div class="eyebrow">Add a note (optional)</div><div class="chips">${notes.map(n=>`<button class="chip" data-a="s-dnote" data-v="${n}" aria-pressed="${d.note===n}">${n}</button>`).join('')}</div></div>`
+ +`<div class="foot"><div class="row"><span class="grow muted">${t('total')}</span><span class="price">${inr(tot)}</span></div><div class="row"><button class="btn warn" data-a="s-rdecline">${t('decline')}</button><button class="btn grow" data-a="s-send" ${tot?'':'disabled'}>${ic('send')}${t('send')}</button></div></div>`;
+}
+function shopRates(){
+ const o=S.shop;
+ const rows=ITEMS.map(m=>{
+  const pr=o.rates[m.id];
+  if(pr==null)return `<div class="card shopc"><div class="row"><div class="grow">${nm(m)}</div><span class="pill mute">${t('notlisted')}</span><button class="btn sm" data-a="s-list" data-v="${m.id}">${ic('plus')}${t('addit')}</button></div></div>`;
+  const out=o.out[m.id],avg=areaAvg(m.id),diff=avg==null?0:pr-avg;
+  const pill=avg==null?'':(diff>=3?`<span class="pill bad">Area ${inr(avg)} · you +${diff}</span>`:diff<=-3?`<span class="pill good">Area ${inr(avg)} · you ${diff}</span>`:`<span class="pill mute">Area ${inr(avg)}</span>`);
+  return `<div class="card shopc" style="${out?'opacity:.65':''}"><div class="row"><div class="grow">${nm(m)}</div><div style="text-align:center"><button class="sw" role="switch" aria-checked="${!out}" data-a="s-stock" data-v="${m.id}" aria-label="${short(m.en)} in stock"></button><div class="small">${out?t('out'):t('stock')}</div></div></div>
+  <div class="row wrapx"><div class="step"><button data-a="s-rate" data-v="${m.id}|-1" aria-label="Lower price">${ic('minus')}</button><input type="number" inputmode="numeric" value="${pr}" data-c="rate" data-v="${m.id}" aria-label="${short(m.en)} price per ${m.u}"><button data-a="s-rate" data-v="${m.id}|1" aria-label="Raise price">${ic('plus')}</button></div><span class="small muted">per ${m.u}</span><span class="grow"></span>${pill}</div></div>`;
+ }).join('');
+ return sbar(t('today'))
+ +`<div class="content"><div class="row"><button class="btn sun grow" data-a="s-voice">${ic('mic')}${t('voice')}</button><button class="btn ghost" data-a="s-vegout">Veg out</button></div>
+ <div class="note">Updated ${ageText(ageMin(SHOPS[0]))}. Prices older than a day show to customers as "may be old". The area average is built from nearby open shops and never shows who charges what.</div>${rows}</div>`;
+}
+function khataRows(){
+ return [{n:'Ravi Teja (Labbipet)',a:S.khata.due,last:'5 days ago',idx:-1}].concat(S.kl.map((x,i)=>({n:x.n,a:x.a,last:x.last,idx:i})));
+}
+function shopKhata(){
+ const rows=khataRows(),tot=rows.reduce((a,r)=>a+r.a,0);
+ const form=S.s.kform?`<div class="card"><b>${t('add')}</b><div class="chips" style="margin:8px 0">${rows.map((r,i)=>`<button class="chip" data-a="s-kcust" data-v="${i}" aria-pressed="${S.s.kcust===i}">${r.n.split(' (')[0]}</button>`).join('')}</div>
+  <div class="row"><div class="step"><button data-a="s-kamt" data-v="-100" aria-label="Less">${ic('minus')}</button><span>${inr(S.s.kamt)}</span><button data-a="s-kamt" data-v="100" aria-label="More">${ic('plus')}</button></div><button class="btn grow" data-a="s-kadd">${t('save')}</button></div></div>`:'';
+ return sbar(t('khata'))
+ +`<div class="content"><div class="card row"><div class="grow"><span class="note">${t('due')}</span><div class="price">${inr(tot)}</div></div><button class="btn sm" data-a="s-kform">${ic('plus')}${t('add')}</button></div>${form}
+ ${rows.map(r=>`<div class="card shopc"><div class="row"><div class="grow"><b>${r.n}</b><div class="small muted">Last paid ${r.last}${r.idx===-1?' · limit '+inr(S.khata.limit):''}</div></div><span class="price" style="font-size:18px">${inr(r.a)}</span></div>
+ <div class="row"><button class="btn ghost sm grow" data-a="s-kremind" data-v="${r.idx}" ${r.a?'':'disabled'}>${t('remind')}</button><button class="btn sm grow" data-a="s-kpaid" data-v="${r.idx}" ${r.a?'':'disabled'}>${t('paid')}</button></div></div>`).join('')}
+ <div class="note">Reminders go out on WhatsApp in the real app. Here they only show a message.</div></div>`;
+}
+function shopHelp(){
+ return sbar(t('help'))
+ +`<div class="content"><div class="insight">Proposed answers to test with shopkeepers. Change them to whatever you decide.</div>
+ ${FAQ.map((f,i)=>{const open=S.s.faq===i;return `<div class="card faq"><button class="q" data-a="s-faq" data-v="${i}" aria-expanded="${open}"><span class="grow">${S.s.lang==='te'?f.q[1]:f.q[0]}</span>${ic(open?'down':'chev')}</button>${open?`<div class="a">${f.a}</div>`:''}</div>`}).join('')}</div>`;
+}
+
+/* ---------- actions ---------- */
+const later=(fn,ms)=>{S.timers.push(setTimeout(fn,ms));};
+const touch=()=>{S.shop.updated=Date.now();};
+const ordById=v=>S.orders.find(o=>o.id===+v);
+function simulate(o){
+ const s=SHOPS.find(x=>x.id===o.shopId);
+ later(()=>{if(o.status!=='placed')return;o.status='accepted';banner('c',s.name+' accepted your order','Packing it now');paint('c');},3000);
+ later(()=>{if(o.status!=='accepted')return;o.status='ready';banner('c','Order #'+o.id+' is ready','Show your pickup code');paint('c');},8500);
+}
+function sendRequest(){
+ const items=S.list.map(x=>({id:x.id,qty:x.qty}));
+ const r={id:++S.seq.req,items:items,ts:Date.now(),quotes:[],asked:SHOPS.filter(isOpen).length};
+ S.reqs.unshift(r);S.c.reqId=r.id;S.c.from='quotes';goC('quotes');
+ banner('s','New request · Ravi Teja','Labbipet · '+items.length+' items · WhatsApp alert sent');
+ [[2,4000,'Free delivery today'],[3,8500,'Fresh stock came at 6 PM'],[6,13000,'']].forEach(a=>later(()=>{
+  const s=SHOPS.find(x=>x.id===a[0]),c=calc(s,items);
+  if(!c.ok.length||!c.open)return;
+  const disc=(a[0]===6&&c.ok.some(l=>l.id==='rice'))?10:0;
+  const note=a[0]===6?(disc?'₹10 off on rice, 5 kg or more':'Wholesale rates'):a[1]?a[2]:a[2];
+  r.quotes.push({shopId:a[0],lines:c.ok,miss:c.miss,total:c.total-disc,disc:disc,note:note,ts:Date.now()});
+  if(S.c.screen==='quotes'&&S.c.reqId===r.id)banner('c',s.name+' sent a quote',inr(c.total-disc));
+  sync();
+ },a[1]));
+ sync();
+}
+function placeOrder(){
+ const p=S.c.pick,s=SHOPS.find(x=>x.id===p.shopId),r=calc(s),q=p.quote;
+ const lines=(q?q.lines:r.ok).map(l=>({id:l.id,qty:l.qty,price:l.price,amt:l.amt}));
+ const total=q?q.total:r.total;
+ const fee=p.mode==='delivery'?(total>=s.del.free?0:s.del.fee):0;
+ const o={id:++S.seq.ord,shopId:s.id,lines:lines,total:total,fee:fee,mode:p.mode,pay:p.pay,sub:(q?q.miss:r.miss).length?p.sub:null,
+  code:String(1000+Math.floor(Math.random()*9000)),status:'placed',cust:'Ravi Teja',area:S.loc,rated:0};
+ S.orders.unshift(o);S.c.pick=null;goC('orders');
+ if(s.id===1)banner('s','New order #'+o.id,'Ravi Teja · '+inr(total+fee)+' · WhatsApp alert sent');
+ else simulate(o);
+ sync();
+}
+const ACT={
+ view(v){$('.stage').dataset.view=v;$$('.seg button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.v===v)));},
+ 'c-tab'(v){goC(v);paint('c');},
+ 'c-back'(){if(S.c.screen==='shop')goC(S.c.from);else goC('home');paint('c');},
+ 'loc-toggle'(){S.c.locOpen=!S.c.locOpen;paint('c');},
+ loc(v){S.loc=v;S.c.locOpen=false;paint('c');},
+ qty(v){
+  const p=v.split('|'),it=S.list.find(x=>x.id===p[0]);if(!it)return;
+  it.qty=Math.round((it.qty+(+p[1])*ITEM(p[0]).step)*100)/100;
+  if(it.qty<=0)S.list=S.list.filter(x=>x!==it);
+  paint('c');
+ },
+ rm(v){S.list=S.list.filter(x=>x.id!==v);paint('c');},
+ add(v){if(!S.list.some(x=>x.id===v))S.list.push({id:v,qty:v==='chilli'?0.5:1});S.c.q='';paint('c');},
+ mic(){
+  const m=ITEMS.find(i=>!S.list.some(x=>x.id===i.id));
+  if(!m){toast('c','Everything is already on your list');return;}
+  S.list.push({id:m.id,qty:1});paint('c');
+  toast('c','Heard "'+m.alt.split(' ')[0]+'". Added '+short(m.en));
+ },
+ kit(v){
+  const k=KITS.find(x=>x.k===v);
+  S.list=k.i.map(x=>({id:x[0],qty:x[1]}));paint('c');toast('c',k.l+' added');
+ },
+ compare(){S.c.from='results';goC('results');paint('c');},
+ ask(){sendRequest();},
+ sort(v){S.sort=v;paint('c');},
+ filt(v){S.f[v]=!S.f[v];paint('c');},
+ exp(v){S.exp=S.exp===+v?null:+v;paint('c');},
+ pick(v){S.c.pick={shopId:+v,quote:null,mode:'pickup',pay:'upi',sub:'call'};S.c.from='results';goC('shop');paint('c');},
+ pickq(v){
+  const p=v.split('|').map(Number),r=S.reqs.find(x=>x.id===p[0]),q=r.quotes.find(x=>x.shopId===p[1]),s=SHOPS.find(x=>x.id===p[1]);
+  S.c.pick={shopId:p[1],quote:q,mode:'pickup',pay:s.upi?'upi':'cash',sub:'call'};S.c.from='quotes';goC('shop');paint('c');
+ },
+ mode(v){S.c.pick.mode=v;paint('c');},
+ pay(v){S.c.pick.pay=v;paint('c');},
+ sub(v){S.c.pick.sub=v;paint('c');},
+ place(){placeOrder();},
+ collect(v){const o=ordById(v);if(o){o.status='done';paint('c');toast('c','Enjoy! Please rate the shop.');}},
+ rate(v){const p=v.split('|').map(Number),o=ordById(p[0]);if(o){o.rated=p[1];paint('c');toast('c','Thanks for rating');}},
+ kpay(){toast('c','Opens your UPI app in the real app');},
+
+ 's-tab'(v){S.s.tab=v;S.s.reqOpen=null;S.reset.s=true;paint('s');},
+ 's-lang'(){S.s.lang=S.s.lang==='en'?'te':'en';paint('s');},
+ 's-open'(){S.shop.open=!S.shop.open;if(S.shop.open)S.shop.brk=false;sync();toast('s',S.shop.open?'Shop is open. Customers can find you.':'Shop is closed. Customers will not see you as open.');},
+ 's-break'(){S.shop.brk=!S.shop.brk;sync();toast('s',S.shop.brk?'Customers see: back in 10 min':'Welcome back');},
+ 's-rate'(v){const p=v.split('|');S.shop.rates[p[0]]=Math.max(1,S.shop.rates[p[0]]+(+p[1]));touch();sync();},
+ 's-stock'(v){S.shop.out[v]=!S.shop.out[v];touch();sync();toast('s',short(ITEM(v).en)+(S.shop.out[v]?' marked out of stock':' back in stock'));},
+ 's-list'(v){S.shop.rates[v]=ITEM(v).base;S.shop.out[v]=false;touch();sync();toast('s',short(ITEM(v).en)+' added at '+inr(ITEM(v).base));},
+ 's-addjag'(){ACT['s-list']('jaggery');},
+ 's-voice'(){S.shop.rates.onion=35;touch();sync();toast('s','Heard "ullipayalu muppai ayidu". Onion set to ₹35');},
+ 's-vegout'(){
+  const veg=ITEMS.filter(i=>i.veg&&S.shop.rates[i.id]!=null),all=veg.every(i=>S.shop.out[i.id]);
+  veg.forEach(i=>{S.shop.out[i.id]=!all;});touch();sync();toast('s',all?'Vegetables back in stock':'All vegetables marked out');
+ },
+ 's-copy'(){
+  const v='mana-dukanam.app/s/sri-lakshmi';
+  const fb=()=>{const i=$('#s-link');if(i)i.select();toast('s','Select and copy the link');};
+  try{navigator.clipboard.writeText(v).then(()=>toast('s','Link copied'),fb);}catch(_){fb();}
+ },
+ 's-reqopen'(v){S.s.reqOpen=+v;S.s.draft={id:+v,out:{},price:{},note:''};S.reset.s=true;paint('s');},
+ 's-reqback'(){S.s.reqOpen=null;S.reset.s=true;paint('s');},
+ 's-dstock'(v){S.s.draft.out[v]=!S.s.draft.out[v];paint('s');},
+ 's-dprice'(v){
+  const p=v.split('|'),d=S.s.draft,cur=d.price[p[0]]!=null?d.price[p[0]]:S.shop.rates[p[0]];
+  d.price[p[0]]=Math.max(1,cur+(+p[1]));paint('s');
+ },
+ 's-dnote'(v){const d=S.s.draft;d.note=d.note===v?'':v;paint('s');},
+ 's-send'(){
+  const r=S.reqs.find(x=>x.id===S.s.reqOpen),d=S.s.draft,lines=[],miss=[];
+  r.items.forEach(it=>{
+   if(d.out[it.id]||S.shop.rates[it.id]==null){miss.push({id:it.id,qty:it.qty,price:null,why:'Not in stock'});return;}
+   const pr=d.price[it.id]!=null?d.price[it.id]:S.shop.rates[it.id];
+   lines.push({id:it.id,qty:it.qty,price:pr,amt:Math.round(pr*it.qty)});
+  });
+  const total=lines.reduce((a,l)=>a+l.amt,0);
+  r.quotes.push({shopId:1,lines:lines,miss:miss,total:total,disc:0,note:d.note,ts:Date.now()});
+  S.s.reqOpen=null;S.reset.s=true;
+  if(S.c.screen==='quotes'&&S.c.reqId===r.id)banner('c','Sri Lakshmi Kirana sent a quote',inr(total));
+  sync();toast('s','Quote sent: '+inr(total));
+ },
+ 's-rdecline'(){const r=S.reqs.find(x=>x.id===S.s.reqOpen);if(r)r.declined1=true;S.s.reqOpen=null;S.reset.s=true;sync();toast('s','Customer told you cannot supply this list');},
+ 's-accept'(v){const o=ordById(v);o.status='accepted';banner('c','Sri Lakshmi Kirana accepted your order','Packing it now');sync();toast('s','Order accepted');},
+ 's-decline'(v){const o=ordById(v);o.status='cancelled';banner('c','Sri Lakshmi Kirana cannot supply this order','Try another shop');sync();},
+ 's-ready'(v){const o=ordById(v);o.status='ready';banner('c','Order #'+o.id+' is ready','Show your pickup code');sync();toast('s','Customer told: ready');},
+ 's-done'(v){
+  const o=ordById(v),val=(($('#code-'+v)||{}).value||'').trim();
+  if(val!==o.code){toast('s','Code does not match. The code is on the customer phone.');return;}
+  o.status='done';S.shop.sales+=o.total+o.fee;S.shop.orders++;
+  if(o.pay==='khata')S.khata.due+=o.total+o.fee;
+  sync();toast('s','Handed over. '+inr(o.total+o.fee)+(o.pay==='upi'?' received by UPI':''));
+ },
+ 's-release'(v){const o=ordById(v);o.status='cancelled';banner('c','Order #'+o.id+' released','You did not collect it in 30 minutes');sync();toast('s','Order released. Stock is free again.');},
+ 's-kform'(){S.s.kform=!S.s.kform;paint('s');},
+ 's-kcust'(v){S.s.kcust=+v;paint('s');},
+ 's-kamt'(v){S.s.kamt=Math.max(100,S.s.kamt+(+v));paint('s');},
+ 's-kadd'(){
+  if(S.s.kcust===0)S.khata.due+=S.s.kamt;else S.kl[S.s.kcust-1].a+=S.s.kamt;
+  S.s.kform=false;sync();toast('s','Entry saved: '+inr(S.s.kamt));
+ },
+ 's-kpaid'(v){if(+v===-1)S.khata.due=0;else S.kl[+v].a=0;sync();toast('s','Marked as paid');},
+ 's-kremind'(){toast('s','Reminder sent on WhatsApp (demo)');},
+ 's-faq'(v){S.s.faq=S.s.faq===+v?-1:+v;paint('s');}
+};
+const CHG={
+ rate(id,val){
+  const n=parseInt(val,10);if(!(n>0))return;
+  S.shop.rates[id]=Math.min(9999,n);touch();sync();toast('s',short(ITEM(id).en)+' now '+inr(n)+'. Customers see it now.');
+ },
+ dprice(id,val){const n=parseInt(val,10);if(!(n>0))return;S.s.draft.price[id]=Math.min(9999,n);paint('s');}
+};
+document.addEventListener('click',e=>{
+ const el=e.target.closest('[data-a]');
+ if(!el||el.disabled)return;
+ const f=ACT[el.dataset.a];if(f)f(el.dataset.v,el);
+});
+document.addEventListener('change',e=>{
+ const el=e.target.closest('[data-c]');if(!el)return;
+ const f=CHG[el.dataset.c];if(f)f(el.dataset.v,el.value);
+});
+document.addEventListener('input',e=>{
+ if(e.target.id==='c-search'){S.c.q=e.target.value;const s=$('#c-sug');if(s)s.innerHTML=sugChips();}
+});
+const clock=()=>$$('.clock').forEach(c=>{c.textContent=hhmm(new Date());});
+clock();setInterval(clock,30000);
+paint('c');paint('s');
+})();
+
+</script>
+<script>
+(function(){
+ function root(){return document.getElementById(document.querySelector('.stage').dataset.view==='cust'?'c-dyn':'s-dyn');}
+ function handleBack(){
+  var r=root(),cust=r.id==='c-dyn';
+  var b=r.querySelector(cust?'[data-a="c-back"]':'[data-a="s-reqback"]');
+  if(!b){var cur=r.querySelector('.tabs [aria-current="true"]'),first=r.querySelector('.tabs button');if(cur&&first&&cur!==first)b=first;}
+  if(b){b.click();return true;}
+  return false;
+ }
+ try{
+  var A=window.Capacitor&&window.Capacitor.registerPlugin&&window.Capacitor.registerPlugin('App');
+  if(A)A.addListener('backButton',function(){if(!handleBack())A.exitApp();});
+ }catch(e){}
+})();</script>
+</body>
+</html>
